@@ -1,28 +1,13 @@
-name: Run Jest Tests
-
-on:
-  push:
-    branches:
-      - main  # Adjust this to the branch you want to trigger the workflow on
-
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
 jobs:
-  test:
+  check-bats-version:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14  # Adjust this to the Node.js version your project requires
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: move into server
-        run: cd server
-
-      - name: testing
-        run: npm test
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
