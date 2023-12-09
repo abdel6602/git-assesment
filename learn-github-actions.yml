@@ -1,0 +1,10 @@
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning Github Actions
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      -name: Run Jest test
+      run: npm test
