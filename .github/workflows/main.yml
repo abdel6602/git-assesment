@@ -1,25 +1,24 @@
-name: Run Jest Tests
+name: Node.js CI
 
-on:
-  push:
-    branches:
-      - main  # Adjust this to the branch you want to trigger the workflow on
+on: [pull_request]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
+     
+    strategy:
+      matrix:
+        node-version: [18.x]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18  # Adjust this to the Node.js version your project requires
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Jest tests
-        run: npm test
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        
+        - name: npm install
+          run: npm i
+        
+        - name: tests
+          run: npm test
