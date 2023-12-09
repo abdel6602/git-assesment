@@ -1,0 +1,28 @@
+name: Run Jest Tests
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to the branch you want to trigger the workflow on
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 14  # Adjust this to the Node.js version your project requires
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: move into server
+        run: cd server
+
+      - name: testing
+        run: npm test
